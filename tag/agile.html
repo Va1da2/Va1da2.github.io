@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Thoughts on Data Science, ML and Startups - agile</title>
+        <link rel="stylesheet" href="https://va1da2.github.io/theme/css/main.css" />
+        <link href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Thoughts on Data Science, ML and Startups Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://va1da2.github.io/">Thoughts on Data Science, ML and Startups</a></h1>
+                <nav><ul>
+                    <li><a href="https://va1da2.github.io/category/about.html">About</a></li>
+                    <li><a href="https://va1da2.github.io/category/data-science.html">Data Science</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="https://va1da2.github.io/a-case-for-agile-data-science.html">A Case For Agile Data Science</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-11-23T05:50:58+02:00">
+                Published: Mon 23 November 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
+        </address>
+<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/agile.html">agile</a> <a href="https://va1da2.github.io/tag/iterative-development.html">iterative development</a> </p>
+</footer><!-- /.post-info --><p><em>This article was first published in <a href="https://towardsdatascience.com/agile-data-science-data-science-can-and-should-be-agile-c719a511b868">TowardsDataScience</a></em></p>
+<h4>tl;dr;</h4>
+<ul>
+<li>I have encountered a lot of resistance in the data science community against agile methodology and specifically scrum framework. </li>
+<li>I don’t see it this way and claim that most disciplines would improve by adopting agile mindset. </li>
+<li>We will go through a typical scrum sprint to highlight the compatibility of the data science process and the agile development process. </li>
+<li>Finally, we discuss when a scrum is not an appropriate process to follow. If you are a consultant working on many projects at a time or your work requires deep concentration on a single and narrow issue (narrow, so that you alone can solve it).</li>
+</ul>
+<hr>
+<p>I have found a medium post recently, which claims that <a href="https://towardsdatascience.com/why-scrum-is-awful-for-data-science-db3e5c1bb3b4">Scrum is awful for data science</a>. I’m afraid I have to disagree and would like to make a case for Agile Data Science.</p>
+<p>Ideas for this post are significantly influenced by the <a href="https://www.amazon.co.uk/Agile-Data-Science-Russell-Jurney/dp/1491960116">Agile Data Science 2.0</a> book (which I highly recommend) and personal experience. I am eager to know other experiences, so please share them in the comments.</p>
+<hr>
+<p>First, we need to agree on what data science is and how it solves business problems so we can investigate the process of data science and how agile (and specifically Scrum) can improve it.</p>
+<h2>What is Data Science?</h2>
+<p>There are countless definitions online. For example, <a href="https://en.wikipedia.org/wiki/Data_science">Wikipedia</a> gives such a description:</p>
+<blockquote>
+<p>Data science is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structural and unstructured data.</p>
+</blockquote>
+<p>In my opinion, it is quite an accurate definition of what data science tries to accomplish. But I would simplify this definition further.</p>
+<p><strong>Data Science solves business problems by combining business understanding, data and algorithms.</strong></p>
+<p>Compared to the definition in Wikipedia, I would like to stress that data scientists should aim to <strong>solve</strong> business problems rather than <strong>“extract knowledge and insights.”</strong></p>
+<h2>How Data Science Solves business problems?</h2>
+<p>So data science is here to solve business problems. We need to accomplish a few things along the way:</p>
+<ol>
+<li>Understand the business problem;</li>
+<li>Identify and acquire available data;</li>
+<li>Clean / transform / prepare data;</li>
+<li>Select and fit an appropriate “model” for a given data;</li>
+<li>Deploy model to “production” — this is our attempt to solving a given problem;</li>
+<li>Monitoring performance;</li>
+</ol>
+<p>As with everything, there are countless ways to go about implementing those steps, but I will try to persuade you that the agile (incremental and iterative) approach brings the most value to the company and the most joy to data scientists.</p>
+<h2>Agile Data Science Manifesto</h2>
+<p>I took this from page 6 in the <a href="https://www.amazon.co.uk/Agile-Data-Science-Russell-Jurney/dp/1491960116">Agile Data Science 2.0</a> book, so you are encouraged to read the original, but here it is:</p>
+<ul>
+<li>Iterate, iterate, iterate — tables, charts, reports, predictions.</li>
+<li>Ship intermediate output. Even failed experiments have output.</li>
+<li>Prototype experiments over implementing tasks.</li>
+<li>Integrate the tyrannical opinion of data in product management.</li>
+<li>Climb up and down the data-value pyramid as you work.</li>
+<li>Discover and pursue the critical path to a killer product.</li>
+<li>Get meta. Describe the process, not just the end state.</li>
+</ul>
+<p>Not all the steps are self-explanatory, and I encourage you to go and read what Russel Jurney had to say, but I hope that the main idea is clear — we share and intermediate output, and we iterate to achieve value.</p>
+<p>Given the above preliminaries, let us go over a standard week for a scrum team. And we will assume a one week sprint.</p>
+<hr>
+<h2>Scrum Team Sprint</h2>
+<h3>Day 1</h3>
+<p>There are many sprint structure variations, but I will assume that planning is done on Monday morning. The team will decide which user stories from the product backlog will be transferred to the Sprint backlog. The most pressing issue for our business, as evident from the backlog ranking, is customer fraud — fraudulent transactions are causing our valuable customers out of our platform. During the previous backlog refinement session, the team already discussed this task, and the product owner got additional information from the Fraud Investigation team. So during the meeting, the team decides to start with a simple experiment (and already is thinking of interesting iterations further down the road) — an initial model based on simple features of the transaction and participating users. Work is split so that the data scientist can go and have a look at the data team identified for this problem. The data engineer will set up the pipeline for model output integration to DWH systems, and the full-stack engineer starts to set up a page for transaction review and alert system for the Fraud Investigation team.</p>
+<h3>Day 2</h3>
+<p>At the start of Tuesday, all team gathers and shares progress. Data scientist shows a few graphs which indicate that even with limited features, we will have a decent model. At the same time, the data engineer is already halfway through setting up the system to score incoming transactions with the new model. The full-stack engineer is also progressing nicely, and just after a few minutes, everyone is back at their desk working on the agreed tasks.</p>
+<h3>Day 3</h3>
+<p>As with Tuesday, the team starts Wednesday with a standup meeting to share their progress. There is already a simple model build and some accuracy and error rate numbers. The data engineer shows the infrastructure for the transaction scoring, and the team discusses how the features arrive at the system and what needs to be done for them to be ready for the algorithm. The full-stack engineer shows the admin panel with metadata on transactions is displayed and the triggering mechanism. Another discussion follows on the threshold value for the model output to trigger a message for a fraud analyst. The team agrees that we need to be able to adjust this value since different models might have different distributions, and also, depending on other variables, we might want to increase and decrease the number of approved transactions.</p>
+<h3>Day 4</h3>
+<p>On Thursday, the team already has all the pieces, and during the standup, discuss how to integrate those pieces. Team also outlines how to best monitor models in production, so that model performance could be evaluated and also degradation could be detected before it causes any real damage. They agree that a simple dashboard for monitoring accuracy and error rates will suffice for now.</p>
+<h3>Day 5</h3>
+<p>Friday is a demo day. During standup, the team discusses the last issues remaining with the first iteration of the transaction fraud detection. Team members prepare for the meeting with the fraud analysts that will be using this solution.</p>
+<p>During the demo, the team shows what they have built for the fraud analysts. The team presents performance metrics and their implications for the fraud analysts. All feedback is converted to tasks for future sprints.
+Another vital part of the Sprint is a retrospective — meeting where the team discusses three things:
+1. What went well in the Sprint;
+2. What could be improved;
+3. What will we commit to improving in the next Sprint;</p>
+<h3>Further down the road</h3>
+<p>During the next Sprint, the team is working on another most important item from the product backlog. It might be feedback from the fraud analysts, or it might be something else that the product owner thinks will improve the overall business the most. However, the team closely monitors the performance of the initial version of the solution. It will continue to do so because ML solutions are sensitive to changes in underlying assumptions that the model made about data distribution.</p>
+<h2>Discussion</h2>
+<p>Above is a relatively “clean” exposition of the scrum process for data science solutions. Real-world rarely is that way, but I wanted to convey a few points:</p>
+<ol>
+<li>Data Science cannot stand on its own. If we’re going to impact the real world we have to collaborate in a cross-functional team, it should be a part of a wider team;</li>
+<li>Iteration is critical in data science, and we should expose artifacts of those iterations to our stakeholders to receive feedback as fast as possible;</li>
+<li>Scrum is a framework that is designed for iterative progress. Therefore it is a perfect fit for data science work;</li>
+</ol>
+<p>However, it is <em>not</em> a framework for any endeavor. If your job requires you to think deeply for days, then Scrum and agile would probably be very disruptive and counterproductive. Also, if your work requires you to handle a lot of different and small data science-related tasks, following Scrum would be inappropriate, and maybe Kanban should be considered. However, typical product data science work is not like that. Iteration is king, and getting feedback fast is key to providing the right solutions to business problems.</p>
+<h3>In summary</h3>
+<p>Data Science is a perfect fit for the Scrum with a single modification — we do not expect to ship finished models. Instead, we ship artifacts of our work and solicit feedback from our stakeholders so we can make progress faster. Project managers might not like data science for the unpredictability of the progress, but iteration is not at fault, it is the only way forward.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://www.linkedin.com/in/vaidasarmonas/">linkedin</a></li>
+                            <li><a href="https://github.com/Va1da2">github</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
