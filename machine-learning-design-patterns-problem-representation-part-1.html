@@ -3,9 +3,10 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Thoughts on Data Science, ML and Startups - machine learning</title>
+        <title>Machine Learning Design Patterns: Problem Representation Part 1</title>
         <link rel="stylesheet" href="https://va1da2.github.io/theme/css/main.css" />
         <link href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Thoughts on Data Science, ML and Startups Atom Feed" />
+        <meta name="description" content="In my previous post I have discussed data representation patterns presented in Machine Learning Design Patterns by V. Lakshmanan, S. Robinson & M...." />
 </head>
 
 <body id="index" class="home">
@@ -14,13 +15,18 @@
                 <nav><ul>
                     <li><a href="https://va1da2.github.io/category/about.html">About</a></li>
                     <li><a href="https://va1da2.github.io/category/books.html">Books</a></li>
-                    <li><a href="https://va1da2.github.io/category/data-science.html">Data Science</a></li>
+                    <li class="active"><a href="https://va1da2.github.io/category/data-science.html">Data Science</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://va1da2.github.io/machine-learning-design-patterns-problem-representation-part-1.html" rel="bookmark"
+           title="Permalink to Machine Learning Design Patterns: Problem Representation Part 1">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://va1da2.github.io/machine-learning-design-patterns-problem-representation-part-1.html">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2021-01-16T06:01:54+02:00">
                 Published: Sat 16 January 2021
@@ -31,7 +37,7 @@
         </address>
 <p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
 <p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> </p>
-</footer><!-- /.post-info --><p>In my previous <a href="/machine-learning-design-patterns-data-representation.html">post</a> I have discussed data representation patterns presented in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. In this post I would like to talk about the next topic in the above-mentioned book - problem representation. After taking care of our data representation, this is the next logical step (and therefore the next chapter in the book). This is also probably the most important decision to make for an ML problem - the decision how to model a given problem will define how well our solution will perform. The good bit is that we do not need to make this decision correct from the start - as with everything in ML, it is an iterative process, and when you find that your problem cannot be solved by regression, try classification (always try classification if you can).</p>
+</footer><!-- /.post-info -->      <p>In my previous <a href="/machine-learning-design-patterns-data-representation.html">post</a> I have discussed data representation patterns presented in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. In this post I would like to talk about the next topic in the above-mentioned book - problem representation. After taking care of our data representation, this is the next logical step (and therefore the next chapter in the book). This is also probably the most important decision to make for an ML problem - the decision how to model a given problem will define how well our solution will perform. The good bit is that we do not need to make this decision correct from the start - as with everything in ML, it is an iterative process, and when you find that your problem cannot be solved by regression, try classification (always try classification if you can).</p>
 <p>I will do it differently this time - instead of just discussing patterns, I will define a task which we will solve using different design patterns. This way we will be able to compare results and see the influence of problem representation.</p>
 <p>In this post, I will concentrate on <strong>Reframing</strong> and <strong>Neutral Class</strong> design patterns. Next time I will cover <strong>Rebalancing</strong> and <strong>Ensemble</strong> design patterns. But first, let's define our task.</p>
 <h1>Task: Predict song popularity</h1>
@@ -216,36 +222,11 @@ to the tracks that were released in the past decade. Again, for more details, se
 <p>Looking at the scatterplots (or even looking at the label distribution) we see that more can be done to increase model performance. We could train a model to distinguish <code>0</code> (or very low) scores from the higher ones and then train another model to predict higher scores on the output of the first. This is called <strong>Cascade</strong> design pattern and I will write about it in the future. </p>
 <h1>Summary</h1>
 <p>In this post, we explored two ML design patterns - <strong>Reframing</strong> and <strong>Neutral Class</strong>. I have shown that these can work in tandem by reframing a problem at hand from regression to classification and then adding a neutral class to help our model distinguish better high and low values. These two steps add a nice performance boost if we can live with having an estimate of a probability of the <code>high class</code> rather than an estimate of the <code>value itself</code>.</p>
-<p>In my next post, I will take a look into <strong>Rebalancing</strong> and <strong>Ensembles</strong> design patterns. I think they are useful daily since most of the interesting problems are imbalanced by nature (predicting high-value customers, churners, etc.).</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<p>In my next post, I will take a look into <strong>Rebalancing</strong> and <strong>Ensembles</strong> design patterns. I think they are useful daily since most of the interesting problems are imbalanced by nature (predicting high-value customers, churners, etc.).</p>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://va1da2.github.io/machine-learning-design-patterns-data-representation.html" rel="bookmark"
-                           title="Permalink to Machine Learning Design Patterns: Data Representation">Machine Learning Design Patterns: Data Representation</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2021-01-09T12:26:48+02:00">
-                Published: Sat 09 January 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
-        </address>
-<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> </p>
-</footer><!-- /.post-info -->                <p>Design patterns are a set of best practices and solutions to common problems. Machine learning engineers as engineers in other disciplines can benefit immensely by following such patterns. In this and following posts I will discuss ML patterns outlined in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. Let us start with <strong>Data Representation Patterns</strong>.</p>
-                <a class="readmore" href="https://va1da2.github.io/machine-learning-design-patterns-data-representation.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>
