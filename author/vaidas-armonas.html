@@ -35,7 +35,7 @@
 <p>I will do it differently this time - instead of just discussing patterns, I will define a task which we will solve using different design patterns. This way we will be able to compare results and see the influence of problem representation.</p>
 <p>In this post, I will concentrate on <strong>Reframing</strong> and <strong>Neutral Class</strong> design patterns. Next time I will cover <strong>Rebalancing</strong> and <strong>Ensemble</strong> design patterns. But first, let's define our task.</p>
 <h1>Task: Predict song popularity</h1>
-<p>To illustrate above-mentioned design patterns I will try to predict track popularity on Spotify only using track (mostly audio) features such as <em>danceability</em>, <em>liveness</em> and <em>tempo</em>. Data can be downloaded from <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks">Kaggle</a> and the full list of features used and the whole analysis can be found <a href="PUT LINK TO GITHUB WITH NOBTEOOK!">here</a>.</p>
+<p>To illustrate the above-mentioned design patterns I will try to predict track popularity on Spotify only using track (mostly audio) features such as <em>danceability</em>, <em>liveness</em> and <em>tempo</em>. Data can be downloaded from <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks">Kaggle</a> and the full list of features used and I will provide the accompanying notebook shortly (needs a bit of editing).</p>
 <p><strong>Popularity</strong> is a Spotify metric calculated for each track mostly based on the number of plays and the recency of those plays. Given the above definition, we expect that new songs will be more popular on average. So we will limit ourselves 
 to the tracks that were released in the past decade. Again, for more details, see the notebook.</p>
 <h1>Reframing and Neutral Class Design Patterns</h1>
@@ -213,7 +213,7 @@ to the tracks that were released in the past decade. Again, for more details, se
 </table>
 <p>As you can see, an additional 1% and 0.5% increase in Spearman's and Kendall's metrics respectively compared to our simple classification approach. This won't make-or-break your ML project, but the effect it has also will depend on the dataset. And with this simple change, any positive effect is welcome.</p>
 <h2>Discussion</h2>
-<p>Looking at the scatterplots (or even looking at the label distribution) we see that more can be done to increase model performance. We could train a model to distinguish <code>0</code> (or very low) scores from the higher ones and then train another model to predict higher scores on the output of the first. This is called <strong>Cascade</strong> design pattern and I will write about it in the future. </p>
+<p>Looking at the scatterplots (or even looking at the label distribution) we see that more can be done to increase model performance. We could train a model to distinguish <code>0</code> (or very low) scores from the higher ones and then train another model to predict higher scores on the output of the first. This is called the <strong>Cascade</strong> design pattern and I will write about it in the future. </p>
 <h1>Summary</h1>
 <p>In this post, we explored two ML design patterns - <strong>Reframing</strong> and <strong>Neutral Class</strong>. I have shown that these can work in tandem by reframing a problem at hand from regression to classification and then adding a neutral class to help our model distinguish better high and low values. These two steps add a nice performance boost if we can live with having an estimate of a probability of the <code>high class</code> rather than an estimate of the <code>value itself</code>.</p>
 <p>In my next post, I will take a look into <strong>Rebalancing</strong> and <strong>Ensembles</strong> design patterns. I think they are useful daily since most of the interesting problems are imbalanced by nature (predicting high-value customers, churners, etc.).</p>                </article>
@@ -332,5 +332,14 @@ to the tracks that were released in the past decade. Again, for more details, se
                 <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-187862762-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 </body>
 </html>
