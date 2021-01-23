@@ -4,38 +4,37 @@
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
         <title>Thoughts on Data Science, ML and Startups</title>
-        <link rel="stylesheet" href="https://va1da2.github.io/theme/css/main.css" />
-        <link href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Thoughts on Data Science, ML and Startups Atom Feed" />
+        <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="https://va1da2.github.io/">Thoughts on Data Science, ML and Startups</a></h1>
+                <h1><a href="/">Thoughts on Data Science, ML and Startups</a></h1>
                 <nav><ul>
-                    <li><a href="https://va1da2.github.io/category/about.html">About</a></li>
-                    <li><a href="https://va1da2.github.io/category/books.html">Books</a></li>
-                    <li><a href="https://va1da2.github.io/category/data-science.html">Data Science</a></li>
+                    <li><a href="/category/about.html">About</a></li>
+                    <li><a href="/category/books.html">Books</a></li>
+                    <li><a href="/category/data-science.html">Data Science</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://va1da2.github.io/machine-learning-design-patterns-problem-representation-part-1.html">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
+                    <h1 class="entry-title"><a href="/machine-learning-design-patterns-problem-representation-part-1.html">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2021-01-16T06:01:54+02:00">
                 Published: Sat 16 January 2021
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> </p>
+<p>In <a href="/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> </p>
 </footer><!-- /.post-info --><p>In my previous <a href="/machine-learning-design-patterns-data-representation.html">post</a> I have discussed data representation patterns presented in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. In this post I would like to talk about the next topic in the above-mentioned book - problem representation. After taking care of our data representation, this is the next logical step (and therefore the next chapter in the book). This is also probably the most important decision to make for an ML problem - the decision how to model a given problem will define how well our solution will perform. The good bit is that we do not need to make this decision correct from the start - as with everything in ML, it is an iterative process, and when you find that your problem cannot be solved by regression, try classification (always try classification if you can).</p>
 <p>I will do it differently this time - instead of just discussing patterns, I will define a task which we will solve using different design patterns. This way we will be able to compare results and see the influence of problem representation.</p>
 <p>In this post, I will concentrate on <strong>Reframing</strong> and <strong>Neutral Class</strong> design patterns. Next time I will cover <strong>Rebalancing</strong> and <strong>Ensemble</strong> design patterns. But first, let's define our task.</p>
 <h1>Task: Predict song popularity</h1>
-<p>To illustrate the above-mentioned design patterns I will try to predict track popularity on Spotify only using track (mostly audio) features such as <em>danceability</em>, <em>liveness</em> and <em>tempo</em>. Data can be downloaded from <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks">Kaggle</a> and the full list of features used and I will provide the accompanying notebook shortly (needs a bit of editing).</p>
+<p>To illustrate the above-mentioned design patterns I will try to predict track popularity on Spotify only using track (mostly audio) features such as <em>danceability</em>, <em>liveness</em> and <em>tempo</em>. Data can be downloaded from <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks">Kaggle</a> and the full list of features used and you can find a notebook that was used to produce results <a href="https://github.com/Va1da2/blog-notebooks/blob/main/reframing-neutral-class-ml-design-patterns/Reframing%20and%20Neutral%20Class.ipynb">here</a>.</p>
 <p><strong>Popularity</strong> is a Spotify metric calculated for each track mostly based on the number of plays and the recency of those plays. Given the above definition, we expect that new songs will be more popular on average. So we will limit ourselves 
 to the tracks that were released in the past decade. Again, for more details, see the notebook.</p>
 <h1>Reframing and Neutral Class Design Patterns</h1>
@@ -118,12 +117,12 @@ to the tracks that were released in the past decade. Again, for more details, se
 <tr>
 <td>Speaerman's Rho</td>
 <td>0.270</td>
-<td>5.25e-67</td>
+<td>5.52e-67</td>
 </tr>
 <tr>
 <td>Kendall's Tau</td>
 <td>0.184</td>
-<td>6.20e-66</td>
+<td>6.47e-66</td>
 </tr>
 </tbody>
 </table>
@@ -146,13 +145,13 @@ to the tracks that were released in the past decade. Again, for more details, se
 <tbody>
 <tr>
 <td>Speaerman's Rho</td>
-<td>0.306</td>
-<td>7.69e-87</td>
+<td>0.307</td>
+<td>5.62e-87</td>
 </tr>
 <tr>
 <td>Kendall's Tau</td>
 <td>0.210</td>
-<td>3.73e-85</td>
+<td>2.68e-85</td>
 </tr>
 </tbody>
 </table>
@@ -174,12 +173,12 @@ to the tracks that were released in the past decade. Again, for more details, se
 <tr>
 <td>Speaerman's Rho</td>
 <td>0.303</td>
-<td>7.98e-87</td>
+<td>7.06e-85</td>
 </tr>
 <tr>
 <td>Kendall's Tau</td>
 <td>0.207</td>
-<td>1.39e-82</td>
+<td>1.22e-82</td>
 </tr>
 </tbody>
 </table>
@@ -202,16 +201,16 @@ to the tracks that were released in the past decade. Again, for more details, se
 <tr>
 <td>Speaerman's Rho</td>
 <td>0.308</td>
-<td>8.23e-88</td>
+<td>7.61e-88</td>
 </tr>
 <tr>
 <td>Kendall's Tau</td>
 <td>0.211</td>
-<td>7.16e-86</td>
+<td>6.66e-86</td>
 </tr>
 </tbody>
 </table>
-<p>As you can see, an additional 1% and 0.5% increase in Spearman's and Kendall's metrics respectively compared to our simple classification approach. This won't make-or-break your ML project, but the effect it has also will depend on the dataset. And with this simple change, any positive effect is welcome.</p>
+<p>As you can see, an additional 0.5% increase in Spearman's and Kendall's metrics compared to our simple classification approach. This won't make-or-break your ML project, but the effect it has also will depend on the dataset. And with this simple change, any positive effect is welcome.</p>
 <h2>Discussion</h2>
 <p>Looking at the scatterplots (or even looking at the label distribution) we see that more can be done to increase model performance. We could train a model to distinguish <code>0</code> (or very low) scores from the higher ones and then train another model to predict higher scores on the output of the first. This is called the <strong>Cascade</strong> design pattern and I will write about it in the future. </p>
 <h1>Summary</h1>
@@ -225,7 +224,7 @@ to the tracks that were released in the past decade. Again, for more details, se
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="https://va1da2.github.io/machine-learning-design-patterns-data-representation.html" rel="bookmark"
+                    <h1><a href="/machine-learning-design-patterns-data-representation.html" rel="bookmark"
                            title="Permalink to Machine Learning Design Patterns: Data Representation">Machine Learning Design Patterns: Data Representation</a></h1>
                 </header>
 
@@ -236,18 +235,18 @@ to the tracks that were released in the past decade. Again, for more details, se
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> </p>
+<p>In <a href="/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> </p>
 </footer><!-- /.post-info -->                <p>Design patterns are a set of best practices and solutions to common problems. Machine learning engineers as engineers in other disciplines can benefit immensely by following such patterns. In this and following posts I will discuss ML patterns outlined in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. Let us start with <strong>Data Representation Patterns</strong>.</p>
-                <a class="readmore" href="https://va1da2.github.io/machine-learning-design-patterns-data-representation.html">read more</a>
+                <a class="readmore" href="/machine-learning-design-patterns-data-representation.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="https://va1da2.github.io/2020-in-books.html" rel="bookmark"
+                    <h1><a href="/2020-in-books.html" rel="bookmark"
                            title="Permalink to 2020 in Books">2020 in Books</a></h1>
                 </header>
 
@@ -258,18 +257,18 @@ to the tracks that were released in the past decade. Again, for more details, se
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="https://va1da2.github.io/category/books.html">Books</a>.</p>
-<p>tags: <a href="https://va1da2.github.io/tag/2020-review.html">2020 Review</a> <a href="https://va1da2.github.io/tag/year-review.html">Year Review</a> </p>
+<p>In <a href="/category/books.html">Books</a>.</p>
+<p>tags: <a href="/tag/2020-review.html">2020 Review</a> <a href="/tag/year-review.html">Year Review</a> </p>
 </footer><!-- /.post-info -->                <p>2020 was not easy by any measure. COVID-19, adapting to parenthood, rollercoaster of working at an early stage startup - it was a memorable year (though I might not remember a lot because of sleep deprivation). However, I still managed to read a few books and there were several that I would like to reflect upon. So here is an overview and I will share more details on a few books in later posts.</p>
-                <a class="readmore" href="https://va1da2.github.io/2020-in-books.html">read more</a>
+                <a class="readmore" href="/2020-in-books.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="https://va1da2.github.io/a-case-for-agile-data-science.html" rel="bookmark"
+                    <h1><a href="/a-case-for-agile-data-science.html" rel="bookmark"
                            title="Permalink to A Case For Agile Data Science">A Case For Agile Data Science</a></h1>
                 </header>
 
@@ -280,18 +279,18 @@ to the tracks that were released in the past decade. Again, for more details, se
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/agile.html">agile</a> <a href="https://va1da2.github.io/tag/iterative-development.html">iterative development</a> </p>
+<p>In <a href="/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="/tag/data-science.html">data science</a> <a href="/tag/agile.html">agile</a> <a href="/tag/iterative-development.html">iterative development</a> </p>
 </footer><!-- /.post-info -->                <p>I have encountered a lot of resistance in the data science community against agile methodology and specifically the scrum framework. I don’t see it this way and claim that most disciplines would improve by adopting an agile mindset. We will go through a typical scrum sprint to highlight the compatibility of the data science process and the agile development process. Finally, we discuss when a scrum is not an appropriate process to follow. If you are a consultant working on many projects at a time or your work requires deep concentration on a single and narrow issue (narrow, so that you alone can solve it).</p>
-                <a class="readmore" href="https://va1da2.github.io/a-case-for-agile-data-science.html">read more</a>
+                <a class="readmore" href="/a-case-for-agile-data-science.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="https://va1da2.github.io/about.html" rel="bookmark"
+                    <h1><a href="/about.html" rel="bookmark"
                            title="Permalink to Vaidas">Vaidas</a></h1>
                 </header>
 
@@ -302,12 +301,12 @@ to the tracks that were released in the past decade. Again, for more details, se
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="https://va1da2.github.io/category/about.html">About</a>.</p>
+<p>In <a href="/category/about.html">About</a>.</p>
 
 </footer><!-- /.post-info -->                <p>About me.</p>
-                <a class="readmore" href="https://va1da2.github.io/about.html">read more</a>
+                <a class="readmore" href="/about.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
@@ -316,7 +315,6 @@ to the tracks that were released in the past decade. Again, for more details, se
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="https://www.linkedin.com/in/vaidasarmonas/">linkedin</a></li>
                             <li><a href="https://github.com/Va1da2">github</a></li>
@@ -332,14 +330,5 @@ to the tracks that were released in the past decade. Again, for more details, se
                 <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
-    <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-187862762-1', 'auto');
-    ga('send', 'pageview');
-    </script>
 </body>
 </html>
