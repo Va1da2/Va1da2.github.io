@@ -4,32 +4,33 @@
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
         <title>Thoughts on Data Science, ML and Startups - Data Science</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="https://va1da2.github.io/theme/css/main.css" />
+        <link href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Thoughts on Data Science, ML and Startups Atom Feed" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">Thoughts on Data Science, ML and Startups</a></h1>
+                <h1><a href="https://va1da2.github.io/">Thoughts on Data Science, ML and Startups</a></h1>
                 <nav><ul>
-                    <li><a href="/category/about.html">About</a></li>
-                    <li><a href="/category/books.html">Books</a></li>
-                    <li class="active"><a href="/category/data-science.html">Data Science</a></li>
+                    <li><a href="https://va1da2.github.io/category/about.html">About</a></li>
+                    <li><a href="https://va1da2.github.io/category/books.html">Books</a></li>
+                    <li class="active"><a href="https://va1da2.github.io/category/data-science.html">Data Science</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/machine-learning-design-patterns-problem-representation-part-2.html">Machine Learning Design Patterns: Problem Representation Part 2</a></h1>
+                    <h1 class="entry-title"><a href="https://va1da2.github.io/machine-learning-design-patterns-problem-representation-part-2.html">Machine Learning Design Patterns: Problem Representation Part 2</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2021-01-24T05:44:06+02:00">
                 Published: Sun 24 January 2021
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> <a href="/tag/ml-problem-representation.html">ml problem representation</a> </p>
+<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> <a href="https://va1da2.github.io/tag/ml-problem-representation.html">ml problem representation</a> </p>
 </footer><!-- /.post-info --><p>In the <a href="/machine-learning-design-patterns-problem-representation-part-1.html">first part</a> of this <strong>Problem Representation</strong> series, we saw that representing seemingly regression problem as a classification problem can bring increased performance. We also saw that constructing a label in a specific way can additionality increase the performance, but results weren't great - we achieved about 30% correlation only. To increase performance, we will split our problem  - separate low popularity and medium-high popularity songs and treat them separately. Therefore this post is about separating unpopular tracks as best as we can. For this will take a look at two ML representation design patterns from the <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1">book</a> - <strong>Rebalancing</strong> and <strong>Ensembles</strong>. As before, the code to reproduce these results is on <a href="https://github.com/Va1da2/blog-notebooks/blob/main/sampling-ensemble-ml-design-patterns/Rebalancing%20and%20Ensembles.ipynb">github</a>.</p>
 <h1>Task: Classifying songs <code>unpopular</code> vs <code>popular</code></h1>
 <p>Looking at the distribution of popularity for our dataset (tracks produced from 2011), we see that a small portion of the songs is very unpopular (have a popularity score below 20):
@@ -203,7 +204,7 @@
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/machine-learning-design-patterns-problem-representation-part-1.html" rel="bookmark"
+                    <h1><a href="https://va1da2.github.io/machine-learning-design-patterns-problem-representation-part-1.html" rel="bookmark"
                            title="Permalink to Machine Learning Design Patterns: Problem Representation Part 1">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
                 </header>
 
@@ -214,18 +215,18 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> <a href="/tag/ml-problem-representation.html">ml problem representation</a> </p>
+<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> <a href="https://va1da2.github.io/tag/ml-problem-representation.html">ml problem representation</a> </p>
 </footer><!-- /.post-info -->                <p>In my previous <a href="/machine-learning-design-patterns-data-representation.html">post</a> I have discussed data representation patterns presented in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. In this post I would like to talk about the next topic in the above-mentioned book - <strong>problem representation design patterns</strong>.</p>
-                <a class="readmore" href="/machine-learning-design-patterns-problem-representation-part-1.html">read more</a>
+                <a class="readmore" href="https://va1da2.github.io/machine-learning-design-patterns-problem-representation-part-1.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/machine-learning-design-patterns-data-representation.html" rel="bookmark"
+                    <h1><a href="https://va1da2.github.io/machine-learning-design-patterns-data-representation.html" rel="bookmark"
                            title="Permalink to Machine Learning Design Patterns: Data Representation">Machine Learning Design Patterns: Data Representation</a></h1>
                 </header>
 
@@ -236,18 +237,18 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> </p>
+<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="https://va1da2.github.io/tag/machine-learning.html">machine learning</a> <a href="https://va1da2.github.io/tag/ml.html">ml</a> <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/design-patterns.html">design patterns</a> </p>
 </footer><!-- /.post-info -->                <p>Design patterns are a set of best practices and solutions to common problems. Machine learning engineers as engineers in other disciplines can benefit immensely by following such idioms. In this and following posts, I will discuss ML patterns outlined in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. Let us start with <strong>Data Representation Patterns</strong>.</p>
-                <a class="readmore" href="/machine-learning-design-patterns-data-representation.html">read more</a>
+                <a class="readmore" href="https://va1da2.github.io/machine-learning-design-patterns-data-representation.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="/a-case-for-agile-data-science.html" rel="bookmark"
+                    <h1><a href="https://va1da2.github.io/a-case-for-agile-data-science.html" rel="bookmark"
                            title="Permalink to A Case For Agile Data Science">A Case For Agile Data Science</a></h1>
                 </header>
 
@@ -258,12 +259,12 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
+                By                         <a class="url fn" href="https://va1da2.github.io/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
-<p>In <a href="/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="/tag/data-science.html">data science</a> <a href="/tag/agile.html">agile</a> <a href="/tag/iterative-development.html">iterative development</a> </p>
+<p>In <a href="https://va1da2.github.io/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="https://va1da2.github.io/tag/data-science.html">data science</a> <a href="https://va1da2.github.io/tag/agile.html">agile</a> <a href="https://va1da2.github.io/tag/iterative-development.html">iterative development</a> </p>
 </footer><!-- /.post-info -->                <p>I have encountered a lot of resistance in the data science community against agile methodology and specifically the scrum framework. I don’t see it this way and claim that most disciplines would improve by adopting an agile mindset. We will go through a typical scrum sprint to highlight the compatibility of the data science process and the agile development process. Finally, we discuss when a scrum is not an appropriate process to follow. If you are a consultant working on many projects at a time or your work requires deep concentration on a single and narrow issue (narrow, so that you alone can solve it).</p>
-                <a class="readmore" href="/a-case-for-agile-data-science.html">read more</a>
+                <a class="readmore" href="https://va1da2.github.io/a-case-for-agile-data-science.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
@@ -272,6 +273,7 @@
                 <div class="social">
                         <h2>social</h2>
                         <ul>
+                            <li><a href="https://va1da2.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="https://www.linkedin.com/in/vaidasarmonas/">linkedin</a></li>
                             <li><a href="https://github.com/Va1da2">github</a></li>
@@ -287,5 +289,14 @@
                 <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-187862762-1', 'auto');
+    ga('send', 'pageview');
+    </script>
 </body>
 </html>
