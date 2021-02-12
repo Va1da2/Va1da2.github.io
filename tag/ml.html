@@ -19,34 +19,37 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/machine-learning-design-patterns-problem-representation-part-1.html">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
+                    <h1 class="entry-title"><a href="/machine-learning-design-patterns-problem-representation-part-2.html">Machine Learning Design Patterns: Problem Representation Part 2</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2021-01-16T06:01:54+02:00">
-                Published: Sat 16 January 2021
+        <abbr class="published" title="2021-01-24T05:44:06+02:00">
+                Published: Sun 24 January 2021
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
         </address>
 <p>In <a href="/category/data-science.html">Data Science</a>.</p>
-<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> </p>
-</footer><!-- /.post-info --><p>In my previous <a href="/machine-learning-design-patterns-data-representation.html">post</a> I have discussed data representation patterns presented in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. In this post I would like to talk about the next topic in the above-mentioned book - problem representation. After taking care of our data representation, this is the next logical step (and therefore the next chapter in the book). This is also probably the most important decision to make for an ML problem - the decision how to model a given problem will define how well our solution will perform. The good bit is that we do not need to make this decision correct from the start - as with everything in ML, it is an iterative process, and when you find that your problem cannot be solved by regression, try classification (always try classification if you can).</p>
-<p>I will do it differently this time - instead of just discussing patterns, I will define a task which we will solve using different design patterns. This way we will be able to compare results and see the influence of problem representation.</p>
-<p>In this post, I will concentrate on <strong>Reframing</strong> and <strong>Neutral Class</strong> design patterns. Next time I will cover <strong>Rebalancing</strong> and <strong>Ensemble</strong> design patterns. But first, let's define our task.</p>
-<h1>Task: Predict song popularity</h1>
-<p>To illustrate the above-mentioned design patterns I will try to predict track popularity on Spotify only using track (mostly audio) features such as <em>danceability</em>, <em>liveness</em> and <em>tempo</em>. Data can be downloaded from <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks">Kaggle</a> and the full list of features used and you can find a notebook that was used to produce results <a href="https://github.com/Va1da2/blog-notebooks/blob/main/reframing-neutral-class-ml-design-patterns/Reframing%20and%20Neutral%20Class.ipynb">here</a>.</p>
-<p><strong>Popularity</strong> is a Spotify metric calculated for each track mostly based on the number of plays and the recency of those plays. Given the above definition, we expect that new songs will be more popular on average. So we will limit ourselves 
-to the tracks that were released in the past decade. Again, for more details, see the notebook.</p>
-<h1>Reframing and Neutral Class Design Patterns</h1>
-<p>Like I have already mentioned, in this post I would like to discuss and illustrate two problem representation design patterns - <strong>Reframing</strong> and <strong>Neutral Class</strong>. The first should be bread and butter for any data scientist, but the second I haven't seen anywhere else so far.</p>
+<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> <a href="/tag/ml-problem-representation.html">ml problem representation</a> </p>
+</footer><!-- /.post-info --><p>In the <a href="/machine-learning-design-patterns-problem-representation-part-1.html">first part</a> of this <strong>Problem Representation</strong> series, we saw that representing seemingly regression problem as a classification problem can bring increased performance. We also saw that constructing a label in a specific way can additionality increase the performance, but results weren't great - we achieved about 30% correlation only. To increase performance, we will split our problem  - separate low popularity and medium-high popularity songs and treat them separately. Therefore this post is about separating unpopular tracks as best as we can. For this will take a look at two ML representation design patterns from the <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1">book</a> - <strong>Rebalancing</strong> and <strong>Ensembles</strong>. As before, the code to reproduce these results is on <a href="https://github.com/Va1da2/blog-notebooks/blob/main/sampling-ensemble-ml-design-patterns/Rebalancing%20and%20Ensembles.ipynb">github</a>.</p>
+<h1>Task: Classifying songs <code>unpopular</code> vs <code>popular</code></h1>
+<p>Looking at the distribution of popularity for our dataset (tracks produced from 2011), we see that a small portion of the songs is very unpopular (have a popularity score below 20):
+<img alt="popularity-distribution-with-low-scores-highlighted" src="/images/popularity_distribution_train_test_highlight_low.png"></p>
+<p>Low scores are outliers - only around <code>4%</code> of all popularity scores in our dataset fall below the popularity score of 20. However, our track popularity models developed in <a href="/machine-learning-design-patterns-problem-representation-part-1.html">part 1</a> of this series still tried to accommodate these low scores. Our models might perform better, if we would remove these "outlier" tracks, before predicting songs popularity. To do this, we need to classify tracks - <code>unpopular</code>, the ones having popularity of 20 or less, and <code>popular</code>, all the others. Since only 4% of tracks in our dataset have such a low popularity score, this is a highly imbalanced problem. To solve such a task, we will try out a couple of ML design patterns - <strong>Rebalancing</strong> and <strong>Ensembles</strong>.</p>
+<h1>Rebalancing and Ensemble Design Patterns</h1>
+<p><strong>Rebalancing Design Pattern</strong> addresses the problem of the imbalanced dataset in three ways:
+* <strong>undersampling</strong> the majority class - randomly or selectively discarding data from majority class;
+* <strong>oversampling</strong> the minority class - producing additional data points from the minority class based on some heuristic;
+* <strong>weighted classes</strong> - giving weight to errors from minority class to stair model in producing better predictions. </p>
+<p><strong>Ensemble Design Pattern</strong> is a combination of multiple machine learning algorithms trained on subsamples of data to reduce bias, variance, or both. There are three main approaches for ensembles:
+* <strong>Bagging</strong> (bootstrap aggregating) - great for reducing variance in ML models. We train a few models on random samples of our dataset and average (or take the majority vote) of their output. 
+* <strong>Boosting</strong> - used for bias reduction, as it constructs a more powerful ensemble model than any of its models. 
+* <strong>Stacking</strong> - yet another way to combine models. Training a model on top of other model output to find the best weighting of the input model outputs. </p>
+<p>We will use <em>bagging</em> in solving our problem since we will train those models on small data and our goal is to reduce the variance of the combined score.</p>
 <h1>Solving the task</h1>
-<p>The task is simple - predict which song is popular. Popularity rating is an integer from 1 to 100. It's not a real-valued target, as for example price of a house would be, but regression is a reasonable approach here. However, if the only thing we want to predict is popularity (not the rating itself), we can make this task a classification problem by thresholding the popularity index.</p>
+<p>We will go through the experiments to see which produces the best result for our use-case. First, let's see a bit more about the data that we are working with and define evaluation metrics.</p>
 <h3>Data</h3>
-<p>More on data can be found in the notebook referenced above. </p>
-<p>We have 19,788 tracks collected for the years 2011-2020. We split this dataset randomly to train and test sets - 15,830 and 3,958. We have 11 audio features to predict popularity from.</p>
-<p>The popularity has the following distributions for train and test splits
-<img alt="popularity-distribution" src="/images/popularity_distribution_train_test_better.png"></p>
-<p>Not ideal, but close. Statistics are close too:</p>
+<p><em>You will find a bit more EDA in the notebook referenced above.</em></p>
+<p>We have 19,788 tracks collected for the years 2011-2020. We split this dataset randomly to train and test sets - 15,830 and 3,958. We have 11 audio features to predict popularity. Based on the plot provided above, let us mark tracks with the popularity of 20 and less as <code>unpopular</code> and other tracks as <code>popular</code>. Having this definition, summary statistics for the label are:</p>
 <table>
 <thead>
 <tr>
@@ -63,164 +66,162 @@ to the tracks that were released in the past decade. Again, for more details, se
 </tr>
 <tr>
 <td>Mean</td>
-<td>58.89</td>
-<td>58.58</td>
+<td>0.042</td>
+<td>0.041</td>
 </tr>
 <tr>
 <td>Std</td>
-<td>15.30</td>
-<td>15.14</td>
-</tr>
-<tr>
-<td>Min</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>25th</td>
-<td>54</td>
-<td>53</td>
-</tr>
-<tr>
-<td>50th</td>
-<td>61</td>
-<td>60</td>
-</tr>
-<tr>
-<td>75th</td>
-<td>67</td>
-<td>67</td>
-</tr>
-<tr>
-<td>Max</td>
-<td>99</td>
-<td>100</td>
+<td>0.201</td>
+<td>0.200</td>
 </tr>
 </tbody>
 </table>
+<p>The distributions of response are close in training and test sets. </p>
 <h3>Evaluation</h3>
-<p>For these types of problems, I use correlation (rank correlation) as an evaluation metric. Since I want to know which tracks are/will be popular, I am interested to know does my predicted score indicates higher actual popularity - and that's a correlation. I will use <strong>Spearman's Rho</strong> and <strong>Kendall's Tau</strong> with corresponding p-values.</p>
-<h2>Regression</h2>
-<p>As mentioned, regression is a reasonable approach to model popularity. Running it with sklearn's <em>GradientBoostingRegressor</em>, which produces results as follows</p>
-<h4>Predicted vs. Actual Scatter Plot</h4>
-<p><img alt="predicted-vs-actual-popularity-regression" src="/images/predicted_vs_actual_regression_better.png"></p>
-<h4>Correlation coefficients</h4>
+<p>Our problem is a standard classification - the only thing we care about is to classify as accurately as possible examples in the test set. Since our dataset is highly imbalanced, <code>accuracy</code> is not an appropriate metric. We will use <code>precision</code>, <code>recall</code>, and <code>f1-score</code> for evaluation instead as these metrics better capture the performance of the model in our setting.</p>
+<p>Let us start our experiments with the naive approach.</p>
+<h2>Naive classification</h2>
+<p>The naive approach is to do no modifications to our dataset or classifier's hyper-parameters (weighing the classes). Since we are evaluating our models based on precision, recall, and f1-score we need to select a threshold for the model. In our setting, this can be done by looking at the recall-precision-f1 graph like the one  bellow</p>
+<p><img alt="naive-model-recall-precision-f1" src="/images/naive_model_precision_recall_f1_tradeoff.png"></p>
+<p>The best point we can find from the above graph is with <code>0.402</code> recall, <code>0.564</code> precision, and <code>0.470</code> f1-score. The above-mentioned metrics correspond to the threshold of <code>0.205</code>.</p>
+<p>We have our baseline. Next, let us explore various ways to account for imbalance in our dataset and see what impact that brings to model performance.</p>
+<h2>Weighting classes</h2>
+<p>Rebalancing can be done through the algorithm parameter, rather than through changes to the training data. We can penalize errors made on the minority class examples more, and in this way bias our algorithm to learn a better representation of the minority class. After running a few experiments, we achieved the best f1 score with the minority-to-majority weight ratio of 7-to-1. The performance of the model trained with this weighing is as follows</p>
+<p><img alt="weighing-scheme-model-threshold-selection" src="/images/examples_weights_precision_recall_f1_tradeoff.png"></p>
+<p>The best point on the above graph corresponds to the f1-score of <code>0.489</code> (a 4% improvement on the naive approach), with the precision of <code>0.524</code>, recall of <code>0.457</code>, at the threshold of <code>0.545</code>. Now let us see what impact does the rebalancing of the data brings.</p>
+<h2>Undersampling</h2>
+<p>Dealing with the imbalanced dataset can be a series of blog posts in itself. Here we will take a look into a couple of techniques for <code>undersampling</code> and later for <code>oversampling</code>, to get a sense of how these techniques perform. Overall - throwing out data is not a wise decision, so we would expect oversampling techniques to come out on top. Let's see what our experiments show.</p>
+<p>We will use a great package to make this process easy for us - <a href="https://imbalanced-learn.org/stable/index.html">imbalanced-learn</a>.</p>
+<h3>Random</h3>
+<p>Random undersampling is the simplest approach we can take to alter our dataset - randomly discarding some of the majority class records to achieve a specified level of "balance". Running a few experiments for different values of this balance, we have found that the best performing ratio is <code>0.2</code> - undersampling until the balance is 20% minority examples and 80% majority examples (the original dataset was 4% minority and 96% majority).</p>
+<p><img alt="random-undersampling-precision-recall-tradeoff" src="/images/random_undersampling_precision_recall_f1_tradeoff.png"></p>
+<p>The best point on the above graph corresponds to the f1-score of <code>0.484</code> (a slightly lower score than the one for weighted training), with the precision of <code>0.469</code>, recall of <code>0.500</code>, at the threshold of <code>0.423</code>. We see that this approach gives us the model that has a slightly different precision-recall tradeoff - we have better recall with this model and a slightly lower precision score. With the f1 score being almost the same, we can pick a model that fits our use-case better in terms of this tradeoff later. Next, let us investigate a bit cleverer undersampling technique.</p>
+<h3>NearMiss</h3>
+<p>NearMiss method is based on a <a href="https://www.site.uottawa.ca/~nat/Workshop2003/jzhang.pdf">paper</a> by Zhang J. and Mani I. (2003). There are three variations of the algorithm:
+1.  <strong>NearMiss1</strong> - selects majority class examples with the smallest average distance to three closets minority class examples.
+2. <strong>NearMiss2</strong> - selects majority class examples according to their distance to three farthest minority class examples.
+3. <strong>NearMiss3</strong> - selects a given number of the closest majority class examples to the minority class example. </p>
+<p>After running 9 experiments for each of the above variations, the best results were achieved for <code>version 3</code> with the equal sampling strategy - we downsampled the majority class to a 50/50 ratio. </p>
+<p><img alt="near-miss-undersampling-precision-recall-f1-tradeoff" src="/images/near_miss_precision_recall_f1_tradeoff.png"></p>
+<p>Given how much data we discard, it is no surprise that results are worse than those of other methods - the best performance is achieved with the threshold of <code>0.692</code> - the precision of <code>0.483</code>, recall of <code>0.341</code>, and f1 score of <code>0.400</code>. Let us see if oversampling can improve results.</p>
+<h2>Oversampling</h2>
+<p>It is no surprise that we lose model performance as we discard records from our dataset. Our dataset is not very big, to begin with. So next, we will try a couple of oversampling methods - <strong>SMOTE</strong> and <strong>ADASYN</strong>.</p>
+<h3>SMOTE</h3>
+<p>SMOTE was proposed in the paper by <a href="https://arxiv.org/pdf/1106.1813.pdf">Chawla et al. (2002)</a> as a means of improving model performance on imbalanced datasets and as an alternative to random over-sampling with replacement. Instead of oversampling actual records, this approach creates synthetic examples from the minority class. Let's see how it performs on our dataset.</p>
+<p>Running several experiments with different oversampling ratios, we find that the best performing model is produced on the dataset that is oversampled to the 20/80 level.</p>
+<p><img alt="smote-oversampling-precision-recall-f1-tradeoff" src="/images/smote_oversampling_precision_recall_f1_tradeoff.png"></p>
+<p>Oversampling gave us a better model than NearMiss undersampling, but it still does not outperform any of the naive or weighted model or the one produced by randomly undersampling records. The best performance is with the threshold of <code>0.567</code> - the precision of <code>0.500</code>, recall of <code>0.396</code>, and f1-score of <code>0.442</code>. Let us investigate another oversampling technique.</p>
+<h3>ADASYN</h3>
+<p>ADASYN is the algorithm proposed in <a href="https://ieeexplore.ieee.org/abstract/document/4633969">Haibo et al. (2008)</a>. The main difference from SMOTE is that ADASYN generates more synthetic examples that are harder to learn instead of treating every minority group example equally.</p>
+<p>As with SMOTE, ADASYN oversampling produces the best model with the dataset balance of 20/80.</p>
+<p><img alt="adasyn-oversampling-precision-recall-f1-tradeoff" src="/images/adasyn_oversampling_precision_recall_f1_tradeoff.png"></p>
+<p>As is obvious from the graph, oversampling with ADASYN gives us a model that outperforms just one other - NearMiss model - the precision of <code>0.453</code>, recall of <code>0.378</code>, and overall f1-score of <code>0.412</code>.</p>
+<h2>Ensemble</h2>
+<p>The <strong>Ensemble</strong> design pattern is useful for many problems, not just for imbalanced datasets. By training and aggregating multiple models that have seen different parts of the training dataset, model performance will be more stable. There are different ensemble techniques to target bias or variance issues, and there are algorithms, that already incorporate this technique - Random forest (bagging) and Boosted trees (boosting). However, when having an imbalanced dataset there is a twist.</p>
+<p>With imbalanced datasets we do not want to train the model on the random sample of our data, what we want to do, is to randomly downsample the majority class and trained our model on balanced data. Then we repeat this process as many times as needed for a stable performance. In our case, with song popularity prediction, aggregating 40 models produced the best result.</p>
+<p>By running several experiments, we found that the best ensemble has 45 models. That's a lot, but models are tree-based algorithms so the inference is not snail-slow.</p>
+<p><img alt="ensemble-precision-recall-f1-tradeoff" src="/images/ensemble_precision_recall_f1_tradeoff.png"></p>
+<p>Ensemble approach gives us the third-best model with the precision of <code>0.481</code>, recall of <code>0.470</code>, and f1-score of <code>0.475</code> at a threshold of <code>0.733</code>. </p>
+<h1>Discussion</h1>
+<p>Putting all our results together we get the following table:</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Coefficient</th>
-<th>p-value</th>
+<th>Approach</th>
+<th>Precision</th>
+<th>Recall</th>
+<th>F1-Score</th>
+<th align="left">Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Speaerman's Rho</td>
-<td>0.270</td>
-<td>5.52e-67</td>
+<td>Weighting training examples</td>
+<td>0.524</td>
+<td>0.457</td>
+<td>0.489</td>
+<td align="left">Best performing weighting at 7-to-1; threshold - 0.545</td>
 </tr>
 <tr>
-<td>Kendall's Tau</td>
-<td>0.184</td>
-<td>6.47e-66</td>
+<td>Random undersampling</td>
+<td>0.469</td>
+<td>0.500</td>
+<td>0.484</td>
+<td align="left">Best performing undersampling to 20/80; threshold - 0.423</td>
+</tr>
+<tr>
+<td>Ensemble</td>
+<td>0.481</td>
+<td>0.470</td>
+<td>0.475</td>
+<td align="left">Best performing ensemble was with 45 models; threshold - 0.733</td>
+</tr>
+<tr>
+<td>Naive</td>
+<td>0.564</td>
+<td>0.402</td>
+<td>0.470</td>
+<td align="left">Threshold - 0.205</td>
+</tr>
+<tr>
+<td>SMOTE oversampling</td>
+<td>0.500</td>
+<td>0.396</td>
+<td>0.442</td>
+<td align="left">Best performing oversampling at 20/80; threshold - 0.567</td>
+</tr>
+<tr>
+<td>ADASYN oversampling</td>
+<td>0.453</td>
+<td>0.378</td>
+<td>0.412</td>
+<td align="left">Best performing oversampling at 20/80; threshold - 0.578</td>
+</tr>
+<tr>
+<td>NearMiss undersampling</td>
+<td>0.483</td>
+<td>0.341</td>
+<td>0.400</td>
+<td align="left">Best performing undersampling was done with version 3 to 50/50; threshold - 0.692</td>
 </tr>
 </tbody>
 </table>
-<p>There is a statistically significant correlation between predicted and actual popularity. But let's see if we can do better.</p>
-<h2>Classification</h2>
-<p>We can reframe our original regression problem to classification by thresholding the popularity index to create classes for our model to predict. This usually works better than regression, because we simplify the problem a bit. If the only thing we need is a relative ordering of the songs - scores from the classification model are perfectly good for it.</p>
-<h3>Split at the median</h3>
-<p>The simplest approach for binary class creation - split the scores at the median value. With this approach, we will have nicely distributed training data. This might not work if in your dataset values are very skewed towards one or the other end of the scale. In that case, you will have to experiment if having the imbalanced dataset works out OK or you should employ some re-balancing design patterns (the subject of my next post!).</p>
-<h4>Predicted vs. Actual Scatter Plot</h4>
-<p><img alt="predicted-vs-actual-popularity-classification-simple" src="/images/predicted_vs_actual_classification1_better.png"></p>
-<h4>Correlation coefficients</h4>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Coefficient</th>
-<th>p-value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Speaerman's Rho</td>
-<td>0.307</td>
-<td>5.62e-87</td>
-</tr>
-<tr>
-<td>Kendall's Tau</td>
-<td>0.210</td>
-<td>2.68e-85</td>
-</tr>
-</tbody>
-</table>
-<p>It is an 11% and 14% improvement in Spearman's and Kendall's correlations respectively. Not bad for simple thresholding. Let's see if we can improve upon this result.</p>
-<h3>Middle values removed</h3>
-<p>Another trick that I always experiment with is trying to simplify a problem for the algorithm by removing middle values. Depending on you problem this might help for the model to better distinguish between <code>good</code> and <code>bad</code> examples. However, this means that we are discarding some of our data. And therefore this tradeoff will improve results when an amount of discarded data is less costly than the ambiguity that is removed.</p>
-<h4>Predicted vs. Actual Scatter Plot</h4>
-<p><img alt="predicted-vs-actual-popularity-classification-middle-removed" src="/images/predicted_vs_actual_classification2_better.png"></p>
-<h4>Correlation coefficients</h4>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Coefficient</th>
-<th>p-value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Speaerman's Rho</td>
-<td>0.303</td>
-<td>7.06e-85</td>
-</tr>
-<tr>
-<td>Kendall's Tau</td>
-<td>0.207</td>
-<td>1.22e-82</td>
-</tr>
-</tbody>
-</table>
-<p>In our example, I took top and bottom 40 percent of the dataset, and as we can see this ended up hurting performance. I also varied the amount of data I remove, and this approach always has a detrimental effect on model performance in this case.</p>
-<h2>Classification with Neutral Class</h2>
-<p>The above example tried to remove ambiguity introduced by splitting continuous variable at a threshold, but hurt model performance because part of the data was removed. The <strong>Neutral Class</strong> design pattern takes care of that - instead of removing part of the data, we give it a class and use it for prediction. Then, at inference time, we only look at the <code>high</code> class probability.</p>
-<p>The neutral class design pattern is also useful when we train models on human labelers output - medical imaging applications for example. When human labelers do not agree, we can represent that uncertainty to our model via neutral class.</p>
-<h4>Predicted vs. Actual Scatter Plot</h4>
-<p><img alt="predicted-vs-actual-popularity-classification-neutral-class" src="/images/predicted_vs_actual_classification3_better.png"></p>
-<h4>Correlation coefficients</h4>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Coefficient</th>
-<th>p-value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Speaerman's Rho</td>
-<td>0.308</td>
-<td>7.61e-88</td>
-</tr>
-<tr>
-<td>Kendall's Tau</td>
-<td>0.211</td>
-<td>6.66e-86</td>
-</tr>
-</tbody>
-</table>
-<p>As you can see, an additional 0.5% increase in Spearman's and Kendall's metrics compared to our simple classification approach. This won't make-or-break your ML project, but the effect it has also will depend on the dataset. And with this simple change, any positive effect is welcome.</p>
-<h2>Discussion</h2>
-<p>Looking at the scatterplots (or even looking at the label distribution) we see that more can be done to increase model performance. We could train a model to distinguish <code>0</code> (or very low) scores from the higher ones and then train another model to predict higher scores on the output of the first. This is called the <strong>Cascade</strong> design pattern and I will write about it in the future. </p>
-<h1>Summary</h1>
-<p>In this post, we explored two ML design patterns - <strong>Reframing</strong> and <strong>Neutral Class</strong>. I have shown that these can work in tandem by reframing a problem at hand from regression to classification and then adding a neutral class to help our model distinguish better high and low values. These two steps add a nice performance boost if we can live with having an estimate of a probability of the <code>high class</code> rather than an estimate of the <code>value itself</code>.</p>
-<p>In my next post, I will take a look into <strong>Rebalancing</strong> and <strong>Ensembles</strong> design patterns. I think they are useful daily since most of the interesting problems are imbalanced by nature (predicting high-value customers, churners, etc.).</p>                </article>
+<p>Evaluating models on the highest f1-score achieved, we have two close contenders with slightly different performance profiles. Model build by weighing training examples has higher precision, but lower recall, while model build by randomly undersampling majority class in training data has a higher recall and lower precision. The next two models (the 3rd and 4th by f1 score) are also close in terms of f1 score but are a bit different in where their performance comes from. The ensemble model is quite balanced with recall and precision being close, while the Naive model has the highest precision among selected models with recall being barely above 0.4.</p>
+<p>We set out on this imbalanced classification journey to "clean" our dataset from really low popularity tracks before trying to predict that popularity for "normal" tracks. By applying our top-performing model, we get the following popularity distribution:</p>
+<p><img alt="popularity-distribution-for-original-and-cleaned-dataset" src="/images/comparison_of_popularity_distributions.png"></p>
+<p>We remove around 60% of the unpopular songs with our model. We would probably like to remove more, but if it's enough to make an impact on the performance of our combined algorithm - we will have to wait for the <strong>Part 3</strong> of this <strong>Problem Representation Design Patterns</strong> series, where we will bring it together to produce a combined algorithm to predict the popularity of the track.</p>
+<h3>Other Posts in Machine Learning Design Patterns Series</h3>
+<ul>
+<li><a href="/machine-learning-design-patterns-data-representation.html">Data Representation Design Patters</a></li>
+<li><a href="/machine-learning-design-patterns-problem-representation-part-1.html">Problem Representation Design Patterns Part 1</a></li>
+</ul>                </article>
             </aside><!-- /#featured -->
                 <section id="content" class="body">
                     <h1>Other articles</h1>
                     <hr />
                     <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/machine-learning-design-patterns-problem-representation-part-1.html" rel="bookmark"
+                           title="Permalink to Machine Learning Design Patterns: Problem Representation Part 1">Machine Learning Design Patterns: Problem Representation Part 1</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-01-16T06:01:54+02:00">
+                Published: Sat 16 January 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/vaidas-armonas.html">Vaidas Armonas</a>
+        </address>
+<p>In <a href="/category/data-science.html">Data Science</a>.</p>
+<p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> <a href="/tag/ml-problem-representation.html">ml problem representation</a> </p>
+</footer><!-- /.post-info -->                <p>In my previous <a href="/machine-learning-design-patterns-data-representation.html">post</a> I have discussed data representation patterns presented in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. In this post I would like to talk about the next topic in the above-mentioned book - <strong>problem representation design patterns</strong>.</p>
+                <a class="readmore" href="/machine-learning-design-patterns-problem-representation-part-1.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -239,7 +240,7 @@ to the tracks that were released in the past decade. Again, for more details, se
         </address>
 <p>In <a href="/category/data-science.html">Data Science</a>.</p>
 <p>tags: <a href="/tag/machine-learning.html">machine learning</a> <a href="/tag/ml.html">ml</a> <a href="/tag/data-science.html">data science</a> <a href="/tag/design-patterns.html">design patterns</a> </p>
-</footer><!-- /.post-info -->                <p>Design patterns are a set of best practices and solutions to common problems. Machine learning engineers as engineers in other disciplines can benefit immensely by following such patterns. In this and following posts I will discuss ML patterns outlined in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. Let us start with <strong>Data Representation Patterns</strong>.</p>
+</footer><!-- /.post-info -->                <p>Design patterns are a set of best practices and solutions to common problems. Machine learning engineers as engineers in other disciplines can benefit immensely by following such idioms. In this and following posts, I will discuss ML patterns outlined in <a href="https://www.amazon.co.uk/Machine-Learning-Design-Patterns-Preparation/dp/1098115783/ref=sr_1_1?crid=NI2IJ980L4YN&amp;dchild=1"><strong>Machine Learning Design Patterns by V. Lakshmanan, S. Robinson &amp; M. Munn</strong></a>. Let us start with <strong>Data Representation Patterns</strong>.</p>
                 <a class="readmore" href="/machine-learning-design-patterns-data-representation.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
