@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Thoughts on Data Science, ML and Startups - career</title>
+        <title>Thoughts on Data Science, ML and Startups - Papers repository</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda"/>
@@ -67,23 +67,35 @@ feeds/all.atom.xml"
                     <li><a href="/category/startups.html"> Startups </a></li>
                     <li><a href="/pages/about.html">About</a>
                     </li>
-                    <li><a href="/pages/papers-repository.html">Papers repository</a>
+                    <li><a  class="active" href="/pages/papers-repository.html">Papers repository</a>
                     </li>
                     <li><a href="/pages/book-recommendations.html">Book recommendations</a>
                     </li>
         </ul>
     </nav>
     <main>
-        <section id="list">
-            <h2>#career</h2>
-            <ul>
-                    <li>
-                        <a href="/joining-a-startup-here-is-how-to-choose.html">Want to join a startup? Here is how to choose.</a>
-                        <time>Mar 2021</time>
-                    </li>
-            </ul>
+        <section>
+            <h1>Papers repository</h1>
+            
+            <p>Papers that I find interesting and practically important.</p>
+<ul>
+<li><a href="https://arxiv.org/pdf/2103.13318.pdf" target="_blank">Factors of Influence for Transfer Learning across Diverse Appearance Domains and Task Types by Thomas Mensink et. al.</a>
+Transfer learning is a great way to start out with your problem. It is also known that starting with a pre-trained network almost always improves performance (see the above article for references). However, there are several standard datasets and tasks that models can be pre-trained on and therefor the defaulting to ImageNet pre-trained network might not be the best choice for your problem. This paper investigates under which surcumstances different standard datasets work best. There are also ample references to other papers which investigate more narrow problem of transfer learning in the classification case. Findings from the paper:<ul>
+<li><strong>Classical ImageNet transfer learning always outperforms training model from scratch.</strong> Starting from ImageNet pre-trained models improves performance by 5%-71% across all experiments compared to training from scratch.</li>
+<li>For most target tasks (the task you want to solve), there exists a srouce task (the task on which model is pre-trained) which brings further benefits on top of ImageNet pre-training.</li>
+<li>The image domain strongly affects transfer gains.</li>
+<li>For positive transfer, the source image domain should include target domain.</li>
+<li>Multi-source models yield good transfer, but are outperformed by the largest within-domain source.</li>
+<li>Transfer across task types can bring positive transfer gains.</li>
+<li>Transfer within-task-type and within-domain yield very positive effects.</li>
+<li>Trasfer naturally flows from larget to smaller datasets.</li>
+<li>Transfer learning effects are larger for small target datasets.</li>
+<li>The source domain including the target is more important than the number of source samples! &lt;-  this is very important as it means we should search not for models pre-trained on the biggest datasets, but for the most relevant for our task.</li>
+</ul>
+</li>
+</ul>
         </section>
-    </main>
+     </main>
     <footer>
         <h6>
             Rendered by <a href="http://getpelican.com/">Pelican</a> &nbsp;&bull;&nbsp; Theme by <a
